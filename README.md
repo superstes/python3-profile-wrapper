@@ -7,16 +7,10 @@ It only uses builtin modules.
 ## Install
 
 ```bash
-python3 -m pip install profiler_wrapper
+python3 -m pip install profiler-wrapper
 ```
 
 See: [PyPI](https://pypi.org/project/profiler_wrapper/)
-
-## Install
-
-```bash
-pip install profiler_wrapper
-```
 
 ## Usage
 

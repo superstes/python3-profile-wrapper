@@ -4,7 +4,7 @@ with open('README.md', 'r', encoding='utf-8') as info:
     long_description = info.read()
 
 setuptools.setup(
-    name='profile-wrapper',
+    name='profiler_wrapper',
     version='1.0.0',
     author='René Rath',
     author_email='contact@superstes.eu',

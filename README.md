@@ -1,87 +1,54 @@
-# Python3 - DNS Resolver
+# Python3 - Profiler Wrapper
 
-This is a simple script to resolve DNS A/AAAA records.
+This package provides a wrapper function for easier usage of the built-in profiler.
 
 It only uses builtin modules.
 
 ## Install
 
 ```bash
-python3 -m pip install python3-resolver
+python3 -m pip install profiler_wrapper
 ```
 
-See: [PyPI](https://pypi.org/project/python3-resolver/)
+See: [PyPI](https://pypi.org/project/profiler_wrapper/)
+
+## Install
+
+```bash
+pip install profiler_wrapper
+```
 
 ## Usage
 
-### Shell
-
-If ran from the shell - use the following parameters:
-
-* **-n/--hostname** => The hostname/DNS-record to resolve
-* **-p/--protocol** => IP-Protocol to return (_optional; one of '4/6/46'_)
-
-```bash
-python3 dns_resolver.py -h
-> usage: DNS Resolver [-h] -n HOSTNAME [-p {4,6,46}]
-> 
-> Script to resolve A/AAAA DNS records
-> 
-> options:
->   -h, --help            show this help message and exit
->   -n HOSTNAME, --hostname HOSTNAME
->                         The hostname/DNS-record to resolve
->   -p {4,6,46}, --protocol {4,6,46}
->                         IP-Protocol to return
-
-python3 dns_resolver.py -n superstes.eu
-> ['89.43.33.99', '2a05:8280:f:42ea::3']
-
-python3 dns_resolver.py -n superstes.eu -p 4
-> ['89.43.33.99']
-
-python3 dns_resolver.py -n unsetdomain.com
-> []
-```
-
-### Programmatically
-
-You can import the resolver from other python modules/scripts.
-
-#### Installed via PIP
-
 ```python3
-from dns_resolver import resolve, resolve_ipv4, resolve_ipv6
+from profiler_wrapper import profile
 
-resolve('superstes.eu')
-# list(['89.43.33.99', '2a05:8280:f:42ea::3'])
+def function_to_profile(switch: bool, data: dict, msg: str):
+    ...
+    return {'data': 'test'}
 
-resolve_ipv4('superstes.eu')
-# list(['89.43.33.99'])
 
-resolve_ipv6('superstes.eu')
-# list(['2a05:8280:f:42ea::3'])
-```
+profile(
+    target=function_to_profile,
+    args=[True],
+    kwargs={
+        'data': {'random': 'test'},
+        'msg': 'Yesterday is gone.'
+    },
+    lines=3,
+)
 
-#### Copied
+# (
+#   {'data': 'test'},
+#
+#   "270011472 function calls (270011215 primitive calls) in 181.830 seconds
+#    Ordered by: internal time
+#
+#    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+#         1    5.000    5.000    8.000    8.000 /tmp/test.py:95(function_to_profile)
+#         2    2.000    2.000    3.000    3.000 /tmp/test.py:89(sub_function)
+#         3    1.000    1.000    1.000    1.000 /tmp/test.py:89(sub_function2)
+#    "
+# )
 
-Per example if the scripts are saved in the same directory.
-
-```bash
-ls .
-> dns_resolver.py
-> program.py
-```
-
-```python3
-from dns_resolver import resolve, resolve_ipv4, resolve_ipv6
-
-resolve('superstes.eu')
-# list(['89.43.33.99', '2a05:8280:f:42ea::3'])
-
-resolve_ipv4('superstes.eu')
-# list(['89.43.33.99'])
-
-resolve_ipv6('superstes.eu')
-# list(['2a05:8280:f:42ea::3'])
 ```

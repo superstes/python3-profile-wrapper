@@ -8,4 +8,4 @@ echo ''
 echo 'LINTING Python'
 echo ''
 
-pylint $(git ls-files '*.py')
+pylint --recursive=yes .
